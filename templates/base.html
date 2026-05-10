@@ -1,0 +1,100 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+
+        {% block title %}
+        Semmelweis
+        {% endblock %}
+
+    </title>
+
+    <!-- DaisyUI -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/daisyui@4/dist/full.min.css"
+        rel="stylesheet"
+    />
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Custom Charts -->
+    <script src="{% static 'js/charts.js' %}"></script>
+
+</head>
+
+<body class="bg-base-200 min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="navbar bg-base-100 shadow px-4">
+
+        <div class="flex-1">
+
+            <a
+                href="/"
+                class="btn btn-ghost text-xl"
+            >
+                Semmelweis Analysis
+            </a>
+
+        </div>
+
+        <div class="flex gap-2">
+
+            <a
+                href="/"
+                class="btn btn-sm btn-outline"
+            >
+                Dashboard
+            </a>
+
+            <a
+                href="/yearly/"
+                class="btn btn-sm btn-outline"
+            >
+                Yearly
+            </a>
+
+            <a
+                href="/monthly/"
+                class="btn btn-sm btn-outline"
+            >
+                Monthly
+            </a>
+
+            <a
+                href="/admin/"
+                class="btn btn-sm btn-primary"
+            >
+                Admin
+            </a>
+
+        </div>
+
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto p-6">
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+</body>
+
+</html>

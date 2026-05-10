@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block title %}
+Yearly Records
+{% endblock %}
+
+{% block content %}
+
+<div class="flex justify-between items-center mb-6">
+
+    <h1 class="text-3xl font-bold">
+        Yearly Records
+    </h1>
+
+    <div class="flex gap-2">
+
+        <a
+            href="{% url 'analysis:yearly-create' %}"
+            class="btn btn-primary"
+        >
+            + Add Record
+        </a>
+
+        <a
+            href="{% url 'analysis:yearly-upload' %}"
+            class="btn btn-secondary"
+        >
+            Upload CSV
+        </a>
+
+    </div>
+
+</div>
+
+<!-- Chart Card -->
+<div class="card bg-base-100 shadow-xl mb-6">
+
+    <div class="card-body">
+
+        <h2 class="text-2xl font-bold mb-4">
+            Clinic Comparison Chart
+        </h2>
+
+        <div style="height: 400px;">
+
+            <canvas id="clinicChart"></canvas>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Table Card -->
+<div class="card bg-base-100 shadow-xl">
+
+    <div class="card-body">
+
+        <div class="overflow-x-auto">
+
+            <table class="table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Year</th>
+                        <th>Clinic</th>
+                        <th>Births</th>
+                        <th>Deaths</th>
+                        <th>Proportion</th>
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for record in records %}
+
+                    <tr>
+
+                        <td>{{ record.year }}</td>
+
+                        <td>{{ record.clinic }}</td>
+
+                        <td>{{ record.births }}</td>
+
+                        <td>{{ record.deaths }}</td>
+
+                        <td>{{ record.proportion_deaths }}</td>
+
+                        <td class="flex gap-2">
+
+                            <a
+                                href="{% url 'analysis:yearly-update' record.pk %}"
+                                class="btn btn-sm btn-outline"
+                            >
+                                Edit
+                            </a>
+
+                            <a
+                                href="{% url 'analysis:yearly-delete' record.pk %}"
+                                class="btn btn-sm btn-error"
+                            >
+                                Delete
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    const chartData = {{ chart_data|safe }};
+
+    renderClinicChart(
+        "clinicChart",
+        chartData
+    );
+
+</script>
+
+{% endblock %}
